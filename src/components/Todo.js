@@ -1,4 +1,4 @@
-import { useContext,useState } from "react";
+import { useContext, useState } from "react";
 import { TodoContext } from "../context/TodoContext";
 const Todo = (props) => {
   const [todos, setTodos] = useContext(TodoContext);
@@ -26,6 +26,16 @@ const Todo = (props) => {
 
   const isCompleted = props.completed ? 'completed' : '';
 
+  // Format the date and time
+  const formattedDate = new Date(props.date).toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  });
+
   return (
     <>
       <p className={`todo-item ${isCompleted}`}>
@@ -36,7 +46,9 @@ const Todo = (props) => {
           value={props.id}
           onChange={(e) => completeTodo(e)}
         />
-        <label htmlFor={props.id}>{props.title}</label>
+        <label htmlFor={props.id}>
+          {props.title} - {formattedDate}
+        </label>
         <button
           type="button"
           className="btn-delete"
@@ -49,4 +61,5 @@ const Todo = (props) => {
     </>
   );
 };
+
 export default Todo;

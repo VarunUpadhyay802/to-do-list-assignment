@@ -26,9 +26,15 @@ const TodoList = () => {
           />
         </label>
       )}
-      {filteredTodos.map((todo) => (
-        <Todo key={todo.id} {...todo} />
-      ))}
+      {filteredTodos.length > 0 ? (
+        filteredTodos.map((todo) => <Todo key={todo.id} {...todo} />)
+      ) : (
+        <p>
+          {showCompleted
+            ? "Not a single task is completed."
+            : "No tasks to display."}
+        </p>
+      )}
     </>
   );
 };
