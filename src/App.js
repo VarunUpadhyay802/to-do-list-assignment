@@ -1,16 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
-import { useElementSize } from '@mantine/hooks';
-import { rem } from '@mantine/core';
+import React from 'react'
 
-function App() {
-  const { ref, width, height } = useElementSize();
+const App = () => {
   return (
-    <div className="font-bold">
-     <textarea ref={ref} style={{ width: rem(400), height: rem(120) }} />
-      <div>Width: {width}, height: {height}</div>
-    </div>
-  );
+	<div>
+	
+	</div>
+  )
 }
 
-export default App;
+export default App
