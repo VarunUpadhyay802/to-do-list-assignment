@@ -1,15 +1,35 @@
-import { useContext } from 'react';
-import Todo from './Todo';
-import { TodoContext } from '../context/TodoContext';
-const TodoList = () => {
-    const [ todos ] = useContext( TodoContext );
-    return(
-        1 <= todos.length ? todos.map( ( item ) => {
-            return(
-                <Todo key={ item.id } id={ item.id } title={ item.title } completed={ item.completed } />
-            );
-        } ) : ( <h4>No todo found. Please add some...</h4> )
-    );
-}
+import { useContext,useState } from "react";
+import { TodoContext } from "../context/TodoContext";
+import Todo from "./Todo";
 
-export default TodoList;
+
+const TodoList = () => {
+  const [todos] = useContext(TodoContext);
+  const [showCompleted, setShowCompleted] = useState(false);
+
+  // Check if there are any tasks before rendering the checkbox
+  const hasTasks = todos.length > 0;
+
+  const filteredTodos = showCompleted
+    ? todos.filter((item) => item.completed)
+    : todos;
+
+  return (
+    <>
+      {hasTasks && (
+        <label>
+          Show Completed Tasks
+          <input
+            type="checkbox"
+            checked={showCompleted}
+            onChange={() => setShowCompleted(!showCompleted)}
+          />
+        </label>
+      )}
+      {filteredTodos.map((todo) => (
+        <Todo key={todo.id} {...todo} />
+      ))}
+    </>
+  );
+};
+export default TodoList
