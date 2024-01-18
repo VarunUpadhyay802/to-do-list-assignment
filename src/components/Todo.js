@@ -4,7 +4,11 @@ import { TodoContext } from "../context/TodoContext";
 const Todo = (props) => {
   const [todos, setTodos] = useContext(TodoContext);
 
-  const completeTodo = () => {
+  const completeTodo = (e) => {
+    if (e.target.type !== "checkbox") {
+      return; // Only proceed if the checkbox is clicked
+    }
+
     const filterTodos = todos.map((item) => {
       if (item.id === props.id) {
         item.completed = !item.completed;
@@ -31,14 +35,11 @@ const Todo = (props) => {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
   });
 
   return (
     <div
-      className={`todo-item ${isCompleted}`}
+      className={`todo-item ${isCompleted} ${props.dragged ? 'dragged' : ''}`}
       draggable
       onDragStart={() => props.onDragStart(props.index)}
       onDragEnter={() => props.onDragEnter(props.index)}
@@ -49,18 +50,14 @@ const Todo = (props) => {
         id={props.id}
         type="checkbox"
         checked={props.completed}
-        onChange={completeTodo}
+        onChange={(e) => completeTodo(e)} // Pass the event object
       />
       <label htmlFor={props.id}>
         {props.title} - {formattedDate}
       </label>
-      <button
-        type="button"
-        className="btn-delete"
-        onClick={(e) => deleteTodo(e)}
-      >
-        Delete
-      </button>
+      <img src="/delete.jpg" alt="delete"
+       className="delete-image"
+      onClick={(e) => deleteTodo(e)}/>
     </div>
   );
 };

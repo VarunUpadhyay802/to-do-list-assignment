@@ -6,8 +6,10 @@
 }
 body {
   font-family: "Roboto", sans-serif;
+  
 }
 .container {
+  
   width: 100%;
   max-width: 480px;
   margin: 100px auto;
@@ -40,6 +42,16 @@ body {
   padding: 10px;
   font-size: 20px;
   color: #3d3d3d;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Added transition for a smooth effect */
+
+  /* Adding focus styles */
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-input:focus {
+  background-color: #fff; /* Change background color on focus */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a box shadow on focus */
 }
 .form-btn {
   height: 40px;
@@ -51,14 +63,26 @@ body {
   cursor: pointer;
   font-weight: 500;
   text-transform: capitalize;
+  background-color: #7f8882; /* Google Green */
+  color: #fff; /* White text */
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* Added transition for hover effect */
+}
+
+.form-btn:hover {
+  background-color: #626362; /* Darker green on hover */
+  color: #f0f0f0; /* Light text color on hover */
 }
 
 .todo-item {
-  padding: 10px;
+  padding: 15px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   background: #f9f9f9;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: solid 0.1px;
 }
 
 .todo-item:nth-child(2n + 2) {
@@ -81,20 +105,49 @@ body {
   cursor: pointer;
 }
 
-.btn-delete {
-  padding: 2px 5px;
-  margin: 0;
-  outline: 0;
-  border: 0;
-  background-color: #ef6262;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 3px;
-  font-size: 13px;
-  font-weight: bold;
-}
+
 .todo-item.completed {
     text-decoration: line-through;
     color: #999; /* Change color as per your preference */
   }
+  /* Add transition for smooth animation during drag-and-drop */
+
+
+  .todo-item:hover {
+    box-shadow: 0px 5px 15px rgba(5, 0, 0, 0.3);
+    background-color: #FBF6EE;
+    border-radius: 5px;
+    border: solid 1px #9c9393;
+  }
   
+  .todo-item.dragged {
+    transform: scale(1.05);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  }
+
+.filter-container {
+  margin-bottom: 20px;
+}
+
+.filter-container label {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.filter-container select {
+  font-size: 16px;
+  padding: 8px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+.delete-image {
+  filter: grayscale(100%); /* Initially make the image grayscale */
+}
+
+.delete-image:hover {
+  transform: scale(1.2); /* Increase size on hover */
+  filter: grayscale(0%); /* Remove grayscale effect on hover */
+}

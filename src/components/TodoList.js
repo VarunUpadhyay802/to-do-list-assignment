@@ -5,6 +5,7 @@ import Todo from "./Todo";
 const TodoList = () => {
   const [todos, setTodos] = useContext(TodoContext);
   const [showCompleted, setShowCompleted] = useState(false);
+  const [filterOption, setFilterOption] = useState('all'); // Default to show all todos
 
   const handleSort = (dragIndex, dropIndex) => {
     const todosClone = [...todos];
@@ -39,22 +40,36 @@ const TodoList = () => {
   const [dropIndex, setDropIndex] = useState(null);
 
   const hasTasks = todos.length > 0;
+  const handleFilterChange = (event) => {
+    setFilterOption(event.target.value);
+  };
 
-  const filteredTodos = showCompleted
-    ? todos.filter((item) => item.completed)
-    : todos;
 
+  const filteredTodos = todos.filter((item) => {
+    switch (filterOption) {
+      case 'all':
+        return true;
+      case 'completed':
+        return item.completed;
+      case 'incomplete':
+        return !item.completed;
+      default:
+        return true;
+    }
+  });
   return (
     <>
       {hasTasks && (
-        <label>
-          Show Completed Tasks
-          <input
-            type="checkbox"
-            checked={showCompleted}
-            onChange={() => setShowCompleted(!showCompleted)}
-          />
-        </label>
+        <div className="filter-container">
+          <label>
+          
+            <select value={filterOption} onChange={handleFilterChange}>
+              <option value="all">All</option>
+              <option value="completed">Completed</option>
+              <option value="incomplete">Incomplete</option>
+            </select>
+          </label>
+        </div>
       )}
       {filteredTodos.length > 0 ? (
         filteredTodos.map((todo, index) => (
@@ -69,8 +84,10 @@ const TodoList = () => {
         ))
       ) : (
         <p>
-          {showCompleted
-            ? "Not a single task is completed."
+          {filterOption === 'completed'
+            ? "No completed tasks."
+            : filterOption === 'incomplete'
+            ? "No incomplete tasks."
             : "No tasks to display."}
         </p>
       )}
