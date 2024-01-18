@@ -39,3 +39,11 @@ This is a simple Task Manager application that allows users to manage their task
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/task-manager-app.git
+
+2.Navigate to the project directory:
+    cd task-manager-app
+3.Install dependencies:
+    npm install
+Run the application locally:
+    npm start
+This will start the development server, and you can view the app by opening http://localhost:3000 in your web browser.
