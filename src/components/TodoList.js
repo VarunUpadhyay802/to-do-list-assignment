@@ -4,7 +4,7 @@ import Todo from "./Todo";
 
 const TodoList = () => {
   const [todos, setTodos] = useContext(TodoContext);
-  const [showCompleted, setShowCompleted] = useState(false);
+  const [showCompleted  , setShowCompleted] = useState(false);
   const [filterOption, setFilterOption] = useState('all'); // Default to show all todos
 
   const handleSort = (dragIndex, dropIndex) => {

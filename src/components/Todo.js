@@ -37,6 +37,10 @@ const Todo = (props) => {
     day: 'numeric',
   });
 
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   return (
     <div
       className={`todo-item ${isCompleted} ${props.dragged ? 'dragged' : ''}`}
@@ -53,11 +57,12 @@ const Todo = (props) => {
         onChange={(e) => completeTodo(e)} // Pass the event object
       />
       <label htmlFor={props.id}>
-        {props.title} - {formattedDate}
+        {capitalizeFirstLetter(props.title)} - {formattedDate}
       </label>
       <img src="/delete.jpg" alt="delete"
-       className="delete-image"
-      onClick={(e) => deleteTodo(e)}/>
+        className="delete-image"
+        onClick={(e) => deleteTodo(e)}
+      />
     </div>
   );
 };

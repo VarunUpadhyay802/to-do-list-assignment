@@ -112,12 +112,18 @@ body {
   }
   /* Add transition for smooth animation during drag-and-drop */
 
-
+  .todo-checkbox {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .todo-checkbox.checked {
+    transform: rotate(360deg); /* Example transition */
+  }
   .todo-item:hover {
-    box-shadow: 0px 5px 15px rgba(5, 0, 0, 0.3);
-    background-color: #FBF6EE;
+    box-shadow: 0px 5px 15px rgba(64, 39, 39, 0.3);
+    background-color: #dcd2c9;
     border-radius: 5px;
-    border: solid 1px #9c9393;
+    border: solid 1px #615e5e;
   }
   
   .todo-item.dragged {
@@ -150,4 +156,9 @@ body {
 .delete-image:hover {
   transform: scale(1.2); /* Increase size on hover */
   filter: grayscale(0%); /* Remove grayscale effect on hover */
+}
+.date {
+  font-weight: bold;
+  color: #3498db; /* Choose your preferred color */
+  margin-right: 8px; /* Adjust as needed */
 }

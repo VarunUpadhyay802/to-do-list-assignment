@@ -11,7 +11,7 @@ const App = () => {
 		
 	<TodoProvider>
 			<div className="container">
-				<h1 className='app-title'>Todo Application</h1>
+				<h1 className='app-title'>Todo List</h1>
 				<AddTodo />
 				
                     <TodoList />
