@@ -1,13 +1,43 @@
-import { useContext,useState } from "react";
+import { useContext, useState } from "react";
 import { TodoContext } from "../context/TodoContext";
 import Todo from "./Todo";
 
-
 const TodoList = () => {
-  const [todos] = useContext(TodoContext);
+  const [todos, setTodos] = useContext(TodoContext);
   const [showCompleted, setShowCompleted] = useState(false);
 
-  // Check if there are any tasks before rendering the checkbox
+  const handleSort = (dragIndex, dropIndex) => {
+    const todosClone = [...todos];
+    const draggedTodo = todosClone[dragIndex];
+    todosClone.splice(dragIndex, 1);
+    todosClone.splice(dropIndex, 0, draggedTodo);
+    setTodos(todosClone);
+  };
+
+  const onDragStart = (index) => {
+    // Set the dragged todo index in the TodoList
+    setDraggedIndex(index);
+  };
+
+  const onDragEnter = (index) => {
+    // Set the index where the dragged todo is dragged over
+    setDropIndex(index);
+  };
+
+  const onDragEnd = () => {
+    // Reorder todos based on the drag and drop indices
+    if (draggedIndex !== dropIndex) {
+      handleSort(draggedIndex, dropIndex);
+    }
+
+    // Reset the drag and drop indices
+    setDraggedIndex(null);
+    setDropIndex(null);
+  };
+
+  const [draggedIndex, setDraggedIndex] = useState(null);
+  const [dropIndex, setDropIndex] = useState(null);
+
   const hasTasks = todos.length > 0;
 
   const filteredTodos = showCompleted
@@ -27,7 +57,16 @@ const TodoList = () => {
         </label>
       )}
       {filteredTodos.length > 0 ? (
-        filteredTodos.map((todo) => <Todo key={todo.id} {...todo} />)
+        filteredTodos.map((todo, index) => (
+          <Todo
+            key={todo.id}
+            index={index}
+            onDragStart={onDragStart}
+            onDragEnter={onDragEnter}
+            onDragEnd={onDragEnd}
+            {...todo}
+          />
+        ))
       ) : (
         <p>
           {showCompleted
@@ -38,4 +77,5 @@ const TodoList = () => {
     </>
   );
 };
-export default TodoList
+
+export default TodoList;
